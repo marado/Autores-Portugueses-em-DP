@@ -73,15 +73,18 @@ for item in generator:
 	try:
 		a_name = item.getSitelink('ptwiki')
 	except pywikibot.exceptions.NoSiteLinkError:
-		try:
+		if 'pt' in item_dict["labels"].keys():
 			a_name = item_dict["labels"]['pt']
-		except:
+		elif 'mul' in item_dict["labels"].keys():
+			a_name = item_dict["labels"]['mul']
+		elif 'en' in item_dict["labels"].keys():
 			a_name = item_dict["labels"]['en']
-
-	except:
-		a_name = item_dict["labels"]['en']
-
-		print("no pt label")
+		else:
+			a_name = ""
+			print ("no label found")
+			# DEBUG:
+			print ("D: the item_dict:")
+			print (item_dict)
 
 	# Falta obter página no wikisource
 	# try:
